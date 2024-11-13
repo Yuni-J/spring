@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/tymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+
+<div layout:fragment="content" class="container-md">
+  <h1>Boot Board Register Page</h1>
+  <hr>
+  <div>
+    <form action="/board/register" method="post">
+      <div class="form-group mb-3">
+        <label for="t" class="from-label">Title</label>
+        <input type="text" class="form-control" name="title" id="t" placeholder="제목을 입력해 주세요">
+      </div>
+      <div class="form-group mb-3">
+        <label for="w" class="from-label">Writer</label>
+        <input type="text" class="form-control" name="writer" id="w" placeholder="작가를 입력해 주세요">
+      </div>
+      <div class="form-group mb-3">
+        <label for="c" class="from-label">Content</label>
+        <textarea class="form-control" name="content" id="c" rows="5" placeholder="내용을 입력해 주세요"></textarea>
+      </div>
+      <button type="submit" class="btn btn-outline-primary" id="regBtn">register</button>
+    </form>
+  </div>
+
+</div>

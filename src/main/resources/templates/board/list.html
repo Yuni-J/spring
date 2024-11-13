@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/tymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+
+<div layout:fragment="content" class="container-md">
+  <h1>Boot Board List Page</h1>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">No.</th>
+        <th scope="col">Title</th>
+        <th scope="col">Writer</th>
+        <th scope="col">RegDate</th>
+      </tr>
+      </thead>
+      <tbody>
+        <tr th:each="bvo:${list}">
+          <td>[[${bvo.bno}]]</td>
+          <td>[[${bvo.title}]]</td>
+          <td>[[${bvo.writer}]]</td>
+          <td>[[${bvo.regDate}]]</td>
+        </tr>
+    </tbody>
+  </table>
+
+
+</div>
