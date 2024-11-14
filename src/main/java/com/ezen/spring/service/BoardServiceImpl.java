@@ -1,6 +1,7 @@
 package com.ezen.spring.service;
 
 import com.ezen.spring.domain.BoardVO;
+import com.ezen.spring.domain.PagingVO;
 import com.ezen.spring.repository.BoardMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +21,27 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public List<BoardVO> getList() {
-        return boardMapper.getList();
+    public List<BoardVO> getList(PagingVO pgvo) {
+        return boardMapper.getList(pgvo);
+    }
+
+    @Override
+    public BoardVO getDetail(long bno) {
+        return boardMapper.getDetail(bno);
+    }
+
+    @Override
+    public int update(BoardVO bvo) {
+        return boardMapper.update(bvo);
+    }
+
+    @Override
+    public int delete(long bno) {
+        return boardMapper.delete(bno);
+    }
+
+    @Override
+    public int getTotalCount(PagingVO pgvo) {
+        return boardMapper.getTotalCount(pgvo);
     }
 }

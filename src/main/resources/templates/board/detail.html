@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/tymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+
+<div layout:fragment="content" class="container-md">
+  <h1>Boot Board Detail Page</h1>
+  <hr>
+  <form action="/board/modify" method="post" id="modForm">
+    <div class="form-group mb-3">
+      <label for="bno" class="from-label" id="bno">No.  [[${bvo.bno}]]</label>
+<!--      <label for="bno" class="from-label">No.</label>-->
+           <input type="hidden" name="bno" th:value="${bvo.bno}">
+    </div>
+    <div class="form-group mb-3">
+      <label for="title" class="from-label">Title</label>
+      <input type="text" class="form-control" name="title" id="title" th:value="${bvo.title}" readonly>
+    </div>
+    <div class="form-group mb-3">
+      <label for="writer" class="from-label">Writer</label>
+      <input type="text" class="form-control" name="writer" id="writer" th:value="${bvo.writer}" readonly>
+      <label for="regDate" class="from-label" id="regDate">RegDate : [[${bvo.regDate}]]</label>
+    </div>
+    <div class="form-group mb-3">
+      <label for="content" class="from-label">Content</label>
+      <textarea class="form-control" name="content" id="content" cols="50" rows="5" th:text="${bvo.content}" readonly></textarea>
+    </div>
+    <button type="button" class="btn btn-outline-primary" id="listBtn">list</button>
+    <!-- detail page 에서 modify 상태로 변경하기 위한 버튼-->
+    <button type="button" class="btn btn-outline-success" id="modBtn">Modify</button>
+    <!--<a th:href="@{/board/delete(bno=${bvo.bno})}"><button type="button" class="btn btn-outline-danger" id="delBtn">Remove</button></a>-->
+    <button type="button" class="btn btn-outline-danger" id="delBtn">Remove</button>
+  </form>
+  <form action="/board/delete" method="get" id="delForm">
+    <input type="hidden" name="bno" th:value="${bvo.bno}">
+  </form>
+
+
+  <script th:src="@{/js/boardDetail.js}"></script>
+
+</div>
+</html>

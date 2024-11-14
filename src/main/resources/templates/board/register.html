@@ -21,8 +21,17 @@
         <label for="c" class="from-label">Content</label>
         <textarea class="form-control" name="content" id="c" rows="5" placeholder="내용을 입력해 주세요"></textarea>
       </div>
+      <!--/* file 추가 라인 */-->
+      <div class="form-group">
+        <label for="file" class="form-label">File</label>
+        <input type="file" class="form-control" name="files" id="file" multiple="multiple" style="display: none;">
+      </div>
+      <button type="button" class="btn btn-outline-info" id="trigger" style="width: 150px;">File Upload</button>
+      <!--/* file 출력 라인 */-->
+      <div id="fileZone" class="input-group mb-3"></div>
       <button type="submit" class="btn btn-outline-primary" id="regBtn">register</button>
     </form>
   </div>
+  <script th:src="@{/js/boardRegister.js}"></script>
 
 </div>
