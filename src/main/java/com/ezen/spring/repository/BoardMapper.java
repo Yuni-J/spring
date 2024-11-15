@@ -11,6 +11,8 @@ public interface BoardMapper {
 
     int register(BoardVO boardVO);
 
+    //int registerFile(BoardDTO boardDTO);
+
     List<BoardVO> getList(PagingVO pgvo);
 
     BoardVO getDetail(long bno);
@@ -20,4 +22,6 @@ public interface BoardMapper {
     int delete(long bno);
 
     int getTotalCount(PagingVO pgvo);
+
+    long getBno();
 }

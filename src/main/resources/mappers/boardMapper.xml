@@ -9,6 +9,9 @@
         insert into board(title, writer, content)
         values(#{title}, #{writer}, #{content})
     </insert>
+    <select id="getBno" resultType="long">
+        select max(bno) from board;
+    </select>
 
     <select id="getList" resultType="com.ezen.spring.domain.BoardVO">
         select * from board

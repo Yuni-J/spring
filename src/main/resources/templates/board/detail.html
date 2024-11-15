@@ -7,37 +7,74 @@
 <div layout:fragment="content" class="container-md">
   <h1>Boot Board Detail Page</h1>
   <hr>
-  <form action="/board/modify" method="post" id="modForm">
-    <div class="form-group mb-3">
-      <label for="bno" class="from-label" id="bno">No.  [[${bvo.bno}]]</label>
-<!--      <label for="bno" class="from-label">No.</label>-->
-           <input type="hidden" name="bno" th:value="${bvo.bno}">
-    </div>
-    <div class="form-group mb-3">
-      <label for="title" class="from-label">Title</label>
-      <input type="text" class="form-control" name="title" id="title" th:value="${bvo.title}" readonly>
-    </div>
-    <div class="form-group mb-3">
-      <label for="writer" class="from-label">Writer</label>
-      <input type="text" class="form-control" name="writer" id="writer" th:value="${bvo.writer}" readonly>
-      <label for="regDate" class="from-label" id="regDate">RegDate : [[${bvo.regDate}]]</label>
-    </div>
-    <div class="form-group mb-3">
-      <label for="content" class="from-label">Content</label>
-      <textarea class="form-control" name="content" id="content" cols="50" rows="5" th:text="${bvo.content}" readonly></textarea>
-    </div>
-    <button type="button" class="btn btn-outline-primary" id="listBtn">list</button>
-    <!-- detail page 에서 modify 상태로 변경하기 위한 버튼-->
-    <button type="button" class="btn btn-outline-success" id="modBtn">Modify</button>
-    <!--<a th:href="@{/board/delete(bno=${bvo.bno})}"><button type="button" class="btn btn-outline-danger" id="delBtn">Remove</button></a>-->
-    <button type="button" class="btn btn-outline-danger" id="delBtn">Remove</button>
-  </form>
-  <form action="/board/delete" method="get" id="delForm">
-    <input type="hidden" name="bno" th:value="${bvo.bno}">
-  </form>
+  <th:block th:with="bvo=${bdto.bvo}">
+    <form action="/board/modify" method="post" id="modForm" enctype="multipart/form-data">
+      <div class="form-group mb-3">
+        <label for="bno" class="from-label" id="bno">No.  [[${bvo.bno}]]</label>
+        <!--<label for="bno" class="from-label">No.</label>-->
+        <input type="hidden" name="bno" th:value="${bvo.bno}">
+      </div>
+      <div class="form-group mb-3">
+        <label for="title" class="from-label">Title</label>
+        <input type="text" class="form-control" name="title" id="title" th:value="${bvo.title}" readonly>
+      </div>
+      <div class="form-group mb-3">
+        <label for="writer" class="from-label">Writer</label>
+        <input type="text" class="form-control" name="writer" id="writer" th:value="${bvo.writer}" readonly>
+        <label for="regDate" class="from-label" id="regDate">RegDate : [[${bvo.regDate}]]</label>
+      </div>
+      <div class="form-group mb-3">
+        <label for="content" class="from-label">Content</label>
+        <textarea class="form-control" name="content" id="content" cols="50" rows="5" th:text="${bvo.content}" readonly></textarea>
+      </div>
+      <hr>
+      <!--/* file print line */-->
+      <div class="mb-3">
+        <ul class="list-group list-group-flush">
+          <li th:each="fvo:${bdto.flist}" class="list-group-item">
+            <div th:if="${fvo.fileType > 0}" class="ms-2 me-auto">
+              <img th:src="@{|/upload/${fvo.saveDir}/${fvo.uuid}_${fvo.fileName}|}" alt="img" />
+            </div>
+            <div th:unless="${fvo.fileType > 0}" class="ms-2 me-auto">
+              <!--/* icon 추가 */-->
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-paperclip" viewBox="0 0 16 16">
+                <path d="M4.5 3a2.5 2.5 0 0 1 5 0v9a1.5 1.5 0 0 1-3 0V5a.5.5 0 0 1 1 0v7a.5.5 0 0 0 1 0V3a1.5 1.5 0 1 0-3 0v9a2.5 2.5 0 0 0 5 0V5a.5.5 0 0 1 1 0v7a3.5 3.5 0 1 1-7 0z"/>
+              </svg>
+            </div>
+            <div class="ms-2 me-auto">
+              <div class="fw-bold text-success">[[${fvo.fileName}]]</div>
+              [[${fvo.regDate}]]
+            </div>
+            <span class="badge text-bg-light text-success rounded-pill">[[${fvo.fileSize}]] Bytes</span>
+            <button type="button" th:data-uuid="${fvo.uuid}" class="btn btn-outline-warning btn-sm file-x" style="display: none;">X</button>
+          </li>
+        </ul>
+      </div>
+      <hr>
+      <!--/* file 추가 라인 */-->
+      <div class="form-group">
+        <input type="file" class="form-control" name="files" id="file" multiple="multiple" style="display: none;">
+      </div>
+      <button type="button" class="btn btn-outline-info" id="trigger" style="width: 150px; display: none;"  >File Upload</button>
+      <!--/* file 출력 라인 */-->
+      <div id="fileZone" class="input-group mb-3"></div>
+
+
+      <button type="button" class="btn btn-outline-primary" id="listBtn">list</button>
+      <!-- detail page 에서 modify 상태로 변경하기 위한 버튼-->
+      <button type="button" class="btn btn-outline-success" id="modBtn">Modify</button>
+      <!--<a th:href="@{/board/delete(bno=${bvo.bno})}"><button type="button" class="btn btn-outline-danger" id="delBtn">Remove</button></a>-->
+      <button type="button" class="btn btn-outline-danger" id="delBtn">Remove</button>
+    </form>
+    <form action="/board/delete" method="get" id="delForm">
+      <input type="hidden" name="bno" th:value="${bvo.bno}">
+    </form>
+  </th:block>
+
 
 
   <script th:src="@{/js/boardDetail.js}"></script>
+  <script th:src="@{/js/boardRegister.js}"></script>
 
 </div>
 </html>
