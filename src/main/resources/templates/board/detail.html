@@ -69,12 +69,67 @@
     <form action="/board/delete" method="get" id="delForm">
       <input type="hidden" name="bno" th:value="${bvo.bno}">
     </form>
+    <br>
+    <hr>
+    <!--/* comment line */-->
+    <!--/* post(등록) */-->
+    <div class="input-group mb-3">
+      <span class="input-group-text" id="cmtWriter">Anonymous</span>
+      <input type="text" id="cmtText" class="form-control" placeholder="댓글 작성" aria-describedy="basic-addon1">
+      <button type="button" id="cmtAddBtn" class="btn btn-outline-secondary">post</button>
+    </div>
+
+    <!--/* spread(뿌리기) */-->
+    <ul class="list-group" id="cmtListArea">
+      <li class="list-group">
+        <div class="list-group">
+          <div class="fw-bold">writer</div>
+          Content
+        </div>
+        <span class="badge text-bg-light rounded-pill">reDate</span>
+      </li>
+    </ul>
+
+    <!--/* comment more button */-->
+    <div>
+      <button type="button" id="moreBtn" date-page="1" class="btn btn-dark"
+              style="visibility:hidden">More +</button>
+    </div>
+
+    <!-- comment modal line -->
+    <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="cmtWriterMod">Anonymous</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-boay">
+            <input type="text" class="form-control" id="cmtTextMod">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" id="cmtModBtn" class="btn btn-primary">Changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <script th:inline="javascript">
+    const bnoVal = [[${bvo.bno}]];
+    console.log(bnoVal);
+  </script>
   </th:block>
 
 
 
   <script th:src="@{/js/boardDetail.js}"></script>
   <script th:src="@{/js/boardRegister.js}"></script>
+  <script th:src="@{/js/boardComment.js}"></script>
+
+  <script>
+    spreadCommentList(bnoVal);
+  </script>
 
 </div>
 </html>
