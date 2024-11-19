@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/tymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+
+<div layout:fragment="content" class="container-md">
+    <h1>Boot User Modify Area</h1>
+
+    <hr>
+    <form action="/user/modify" method="post" th:each="uvo:${#authentication.getPrincipal().userVO}">
+        <input type="hidden" name="email" id="i" th:value="${uvo.email}">
+        <div class="mb-3 d-flex align-items-center">
+            <label for="i" class="form-label me-3">ID :</label>
+            [[${uvo.email}]]
+        </div>
+        <div class="mb-3 d-flex align-items-center">
+            <label for="n" class="form-label me-3">NickName</label>
+            <input type="text" class="form-control" name="nickName" id="n"
+                   th:value="${uvo.nickName}" style="height: 60px;">
+        </div>
+        <div class="mb-3 d-flex align-items-center">
+            <label for="p" class="form-label me-3">Pwd</label>
+            <input type="text" class="form-control" name="pwd" id="p" style="height: 60px;" >
+        </div>
+        <p class="card-text">regDate : [[${#authentication.getPrincipal().userVO.regDate }]] </p>
+        <p class="card-text"><small class="text-body-secondary">Last login [[${uvo.lastLogin}]] ago</small></p>
+        <span class="badge rounded-pill" style="background-color: #ffc107;"
+              th:each="auths:${uvo.authList}">[[${auths.auth }]]</span>
+
+        <button type="submit" class="btn btn-outline-primary btn-sm">modify</button>
+        <a href="/user/remove"><button type="button" class="btn btn-outline-danger btn-sm">remove</button></a>
+    </form>
+</div>
+
+

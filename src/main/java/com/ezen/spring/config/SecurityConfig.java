@@ -30,7 +30,7 @@ public class SecurityConfig {
                         authorize.requestMatchers("/user/list")
                                  .hasAnyRole("ADMIN")
                                 .requestMatchers("/","/index","/js/**","/upload/**","/user/login","/dist/**",
-                                        "/user/signup","/board/list","/board/detail","/comment/list").permitAll()
+                                        "/user/signup","/board/list","/board/detail","/comment/list/**","/image/**").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .formLogin(login -> login

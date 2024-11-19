@@ -1,5 +1,6 @@
 console.log("boardComment.js in");
 console.log(bnoVal);
+console.log(nickName);
 
 document.getElementById('cmtAddBtn').addEventListener('click', ()=>{
     const cmtText = document.getElementById('cmtText');
@@ -44,10 +45,12 @@ function spreadCommentList(bnoVal, page=1){
                 li += `<div class="fw-bold">${cvo.writer}</div>`;
                 li += `${cvo.content}<div>`;
                 li += `<span class="badge text-bg-light rounded-pill">regDate : ${cvo.regDate}</span>`
-                li += `<span class="badge text-bg-light rounded-pill">${cvo.modAt}</span>`
-                //수정 삭제 버튼 추가
-                li += `<button type="button" data-cno=${cvo.cno} class="btn btn-outline-warning btn-sm mod" data-bs-toggle="modal" data-bs-target="#myModal">%</button>`;
-                li += `<button type="button" data-cno=${cvo.cno} class="btn btn-outline-danger btn-sm del">X</button>`;
+                //li += `<span class="badge text-bg-light rounded-pill">${cvo.modAt}</span>`
+                if(nickName === cvo.writer){
+                    //수정 삭제 버튼 추가
+                    li += `<button type="button" data-cno=${cvo.cno} class="btn btn-outline-warning btn-sm mod" data-bs-toggle="modal" data-bs-target="#myModal">%</button>`;
+                    li += `<button type="button" data-cno=${cvo.cno} class="btn btn-outline-danger btn-sm del">X</button>`;
+                }
                 li += `</li>`;
                 ul.innerHTML += li;
             }

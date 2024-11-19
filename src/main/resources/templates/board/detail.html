@@ -2,7 +2,8 @@
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/tymeleaf/layout"
-      layout:decorate="~{layout/layout}">
+      layout:decorate="~{layout/layout}"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <div layout:fragment="content" class="container-md">
   <h1>Boot Board Detail Page</h1>
@@ -73,8 +74,8 @@
     <hr>
     <!--/* comment line */-->
     <!--/* post(등록) */-->
-    <div class="input-group mb-3">
-      <span class="input-group-text" id="cmtWriter">Anonymous</span>
+    <div class="input-group mb-3" sec:authorize="isAuthenticated()">
+      <span class="input-group-text" id="cmtWriter" th:text="${#authentication.getPrincipal().userVO.nickName}"></span>
       <input type="text" id="cmtText" class="form-control" placeholder="댓글 작성" aria-describedy="basic-addon1">
       <button type="button" id="cmtAddBtn" class="btn btn-outline-secondary">post</button>
     </div>
@@ -115,21 +116,30 @@
       </div>
     </div>
 
-  <script th:inline="javascript">
-    const bnoVal = [[${bvo.bno}]];
-    console.log(bnoVal);
-  </script>
+    <script th:inline="javascript">
+      const bnoVal = [[${bvo.bno}]];
+      console.log(bnoVal);
+      let nickName = "";
+      console.log(nickName);
+    </script>
+    <th:block sec:authorize="isAuthenticated()"
+              th:with="auth=${#authentication.getPrincipal().userVO}">
+      <script th:inline="javascript">
+        nickName = [[${auth.nickName}]];
+        console.log(nickName);
+      </script>
+    </th:block>
+
+    <script th:src="@{/js/boardDetail.js}"></script>
+    <script th:src="@{/js/boardRegister.js}"></script>
+    <script th:src="@{/js/boardComment.js}"></script>
+
+    <script>
+      spreadCommentList(bnoVal);
+    </script>
   </th:block>
 
 
-
-  <script th:src="@{/js/boardDetail.js}"></script>
-  <script th:src="@{/js/boardRegister.js}"></script>
-  <script th:src="@{/js/boardComment.js}"></script>
-
-  <script>
-    spreadCommentList(bnoVal);
-  </script>
 
 </div>
 </html>
